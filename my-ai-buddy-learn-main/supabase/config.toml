@@ -1,0 +1,22 @@
+project_id = "mzqszgunhmkphfclkyip"
+
+[functions.chat]
+verify_jwt = true
+
+[functions.studybuddy-hydrate]
+verify_jwt = true
+
+[functions.studybuddy-next]
+verify_jwt = true
+
+[functions.studybuddy-report]
+verify_jwt = true
+
+[functions.gap-detector]
+verify_jwt = true
+
+[functions.teacher-insights]
+verify_jwt = true
+
+[functions.generate-demo-data]
+verify_jwt = false

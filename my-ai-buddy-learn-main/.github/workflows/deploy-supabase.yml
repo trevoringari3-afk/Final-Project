@@ -1,0 +1,38 @@
+name: Deploy Supabase Edge Functions
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'supabase/functions/**'
+      - 'supabase/config.toml'
+
+jobs:
+  deploy-functions:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      
+      - name: Install Supabase CLI
+        run: npm install -g supabase
+      
+      - name: Deploy Edge Functions
+        run: |
+          supabase functions deploy chat --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+          supabase functions deploy gap-detector --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+          supabase functions deploy generate-demo-data --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+          supabase functions deploy studybuddy-hydrate --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+          supabase functions deploy studybuddy-next --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+          supabase functions deploy studybuddy-report --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+          supabase functions deploy teacher-insights --project-ref ${{ secrets.SUPABASE_PROJECT_REF }}
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      
+      - name: Add deployment summary
+        run: echo "✅ Supabase Edge Functions deployed" >> $GITHUB_STEP_SUMMARY

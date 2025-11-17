@@ -1,0 +1,50 @@
+name: Deploy Frontend
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy-to-netlify:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Deploy to Netlify
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=dist --prod
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+      
+      - name: Add deployment summary
+        run: echo "✅ Frontend deployed to Netlify" >> $GITHUB_STEP_SUMMARY
+
+  deploy-to-vercel:
+    runs-on: ubuntu-latest
+    environment: production
+    # Uncomment and configure when ready to deploy to Vercel
+    # steps:
+    #   - uses: actions/checkout@v4
+    #   - name: Deploy to Vercel
+    #     uses: amondnet/vercel-action@v26
+    #     with:
+    #       vercel-token: ${{ secrets.VERCEL_TOKEN }}
+    #       vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+    #       vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+    #       vercel-args: '--prod'
+    steps:
+      - run: echo "Vercel deployment disabled. Uncomment steps in .github/workflows/deploy-frontend.yml to enable."
