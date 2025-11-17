@@ -297,7 +297,8 @@ MIT License - See LICENSE file for details
 
 ## 🤝 Support
 
-- **Email:** support@happylearn.ke (example)
+- **Email:** support@happylearn.ke 
+- **Whatsapp** +254716828346
 - **Privacy Officer:** privacy@happylearn.ke
 - **Community:** Join our Discord/Slack for educator discussions
 
@@ -312,5 +313,5 @@ MIT License - See LICENSE file for details
 
 ---
 
-**Built with ❤️ for Kenyan Learners**  
+**Built with ❤️ by Trevor Michael for Kenyan Learners**  
 Supporting SDG 4: Quality Education for All
